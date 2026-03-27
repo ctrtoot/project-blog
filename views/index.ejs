@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Trang chủ</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>📚 Danh sách bài viết</h1>
+
+    <!-- SEARCH -->
+    <form method="GET" action="/" style="margin-bottom: 20px;">
+        <input type="text" name="search" placeholder="🔍 Tìm bài viết...">
+        <button>Tìm</button>
+    </form>
+
+    <!-- CREATE -->
+    <a href="/blogposts/new" class="btn-add">➕ Tạo bài viết</a>
+
+    <hr>
+
+    <% posts.forEach(post => { %>
+        <div class="post">
+            <h3><%= post.title %></h3>
+            <p><%= post.body.substring(0, 100) %>...</p>
+
+            <a href="/blogposts/<%= post._id %>">Xem</a> |
+            <a href="/blogposts/<%= post._id %>/edit" class="btn-edit">Sửa</a>
+
+            <!-- DELETE -->
+            <form action="/blogposts/<%= post._id %>/delete" method="POST" style="display:inline;">
+                <button class="btn-delete" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
+                    Xóa
+                </button>
+            </form>
+        </div>
+    <% }) %>
+
+</div>
+
+</body>
+</html>
