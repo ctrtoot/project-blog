@@ -1,62 +1,161 @@
+/* ===== BODY ===== */
 body {
-    font-family: Arial, sans-serif;
-    background: linear-gradient(120deg, #74ebd5, #acb6e5);
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(120deg, #89f7fe, #66a6ff);
     margin: 0;
     padding: 0;
 }
 
+/* ===== CONTAINER ===== */
 .container {
     width: 60%;
     margin: 40px auto;
     background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
 }
 
+/* ===== TITLE ===== */
 h1 {
     text-align: center;
-    color: #333;
+    margin-bottom: 25px;
 }
 
-a {
-    text-decoration: none;
-    color: #3498db;
-    font-weight: bold;
+/* ===== SEARCH ===== */
+.search-box {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
-a:hover {
-    color: #e74c3c;
+.search-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
 }
 
-button {
-    padding: 8px 15px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: bold;
+.search-box select {
+    padding: 10px;
+    border-radius: 10px;
 }
 
-button:hover {
-    opacity: 0.8;
+.search-box button {
+    background: #3498db;
+    color: white;
+    border-radius: 10px;
+    padding: 10px 15px;
 }
 
+/* ===== ADD BUTTON ===== */
 .btn-add {
+    display: inline-block;
     background: #2ecc71;
     color: white;
+    padding: 10px 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
 }
 
-.btn-delete {
-    background: #e74c3c;
+/* ===== CARD POST ===== */
+.post {
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    transition: 0.3s;
+}
+
+.post:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.post h3 {
+    margin: 0;
+}
+
+.post p {
+    color: #555;
+}
+
+/* ===== BUTTONS ===== */
+.btn-view {
+    background: #3498db;
     color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
 }
 
 .btn-edit {
     background: #f39c12;
     color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.btn-delete {
+    background: #e74c3c;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+}
+
+.post a, .post button {
+    margin-right: 8px;
+}
+
+/* ===== TEXT ===== */
+a {
+    text-decoration: none;
+}
+
+.btn-add {
+    margin-top: 10px;
 }
 
 .post {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+.tag {
+    display: inline-block;
+    background: #ecf0f1;
+    color: #333;
+    padding: 4px 8px;
+    margin: 3px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.filter-box {
+    background: #fff3cd;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.reset-btn {
+    margin-left: 10px;
+    color: red;
+    font-weight: bold;
+}
+
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin: 5px;
+    padding: 8px 12px;
+    background: #ecf0f1;
+    border-radius: 6px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background: #3498db;
+    color: white;
 }

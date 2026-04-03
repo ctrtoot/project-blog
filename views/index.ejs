@@ -7,37 +7,111 @@
 </head>
 <body>
 
+<%
+function highlight(text, keyword) {
+    if (!keyword) return text;
+    const regex = new RegExp(`(${keyword})`, 'gi');
+    return text.replace(regex, '<mark>$1</mark>');
+}
+%>
+
 <div class="container">
 
     <h1>📚 Danh sách bài viết</h1>
+    <hr style="margin:20px 0;">
+
 
     <!-- SEARCH -->
-    <form method="GET" action="/" style="margin-bottom: 20px;">
-        <input type="text" name="search" placeholder="🔍 Tìm bài viết...">
+    <form method="GET" action="/" class="search-box">
+        <input type="text" name="search" placeholder="🔍 Tìm bài viết..." value="<%= keyword %>">
+
+        <select name="type">
+            <option value="">Tất cả</option>
+            <option value="title" <%= type === 'title' ? 'selected' : '' %>>Tiêu đề</option>
+            <option value="body" <%= type === 'body' ? 'selected' : '' %>>Nội dung</option>
+        </select>
+
         <button>Tìm</button>
     </form>
+
+    <!-- FILTER TAG -->
+    <% if (tag) { %>
+        <div class="filter-box">
+            🔎 Đang lọc theo tag: <strong>#<%= tag %></strong>
+            <a href="/" class="reset-btn">❌ Xóa lọc</a>
+        </div>
+    <% } %>
 
     <!-- CREATE -->
     <a href="/blogposts/new" class="btn-add">➕ Tạo bài viết</a>
 
     <hr>
 
+    <!-- LIST POSTS -->
     <% posts.forEach(post => { %>
         <div class="post">
-            <h3><%= post.title %></h3>
-            <p><%= post.body.substring(0, 100) %>...</p>
 
-            <a href="/blogposts/<%= post._id %>">Xem</a> |
+            <h3><%- highlight(post.title, keyword) %></h3>
+
+            <p style="color:gray; font-size: 13px;">
+                🕒 <%= post.createdAt ? post.createdAt.toLocaleString() : '' %>
+            </p>
+
+            <p><%- highlight(post.body.substring(0, 100), keyword) %>...</p>
+
+            <!-- TAG -->
+            <div>
+                <% if (post.tags) { %>
+                    <% post.tags.forEach(tag => { %>
+                        <a href="/?tag=<%= tag %>" class="tag">#<%= tag %></a>
+                    <% }) %>
+                <% } %>
+            </div>
+
+            <br>
+
+            <a href="/blogposts/<%= post._id %>" class="btn-view">Xem</a>
             <a href="/blogposts/<%= post._id %>/edit" class="btn-edit">Sửa</a>
 
-            <!-- DELETE -->
             <form action="/blogposts/<%= post._id %>/delete" method="POST" style="display:inline;">
                 <button class="btn-delete" onclick="return confirm('Bạn chắc chắn muốn xóa?')">
                     Xóa
                 </button>
             </form>
+
         </div>
     <% }) %>
+
+    <!-- LIST POSTS -->
+<% posts.forEach(post => { %>
+    <div class="post">
+        ...
+    </div>
+<% }) %>
+
+<!--  PAGINATION -->
+<div class="pagination">
+
+    <% if (currentPage > 1) { %>
+        <a href="/?page=<%= currentPage - 1 %>&search=<%= keyword %>&type=<%= type %>&tag=<%= tag %>">
+            ⬅ Prev
+        </a>
+    <% } %>
+
+    <% for(let i = 1; i <= totalPages; i++) { %>
+        <a href="/?page=<%= i %>&search=<%= keyword %>&type=<%= type %>&tag=<%= tag %>" 
+           class="<%= i === currentPage ? 'active' : '' %>">
+           <%= i %>
+        </a>
+    <% } %>
+
+    <% if (currentPage < totalPages) { %>
+        <a href="/?page=<%= currentPage + 1 %>&search=<%= keyword %>&type=<%= type %>&tag=<%= tag %>">
+            Next ➡
+        </a>
+    <% } %>
+
+</div>
 
 </div>
 
